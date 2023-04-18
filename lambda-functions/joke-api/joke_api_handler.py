@@ -17,23 +17,18 @@ def lambda_handler(event, context):
     if resource == "/jokes":
         if method == "POST":
             return post_joke()
-        
+
         elif method == "GET":
             return get_jokes()
-        
-        else:
-            return {
-                "statusCode": 405,
-                "body": f"Method {method} not allowed."
-            }
-    elif resource == "/jokes/{joke_id}":
-        joke_id = event["pathParameters"]["joke_id"]
-        return get_joke(joke_id)
-        
-    else:
-        return {
-            "statusCode": 404,
-            "body": f"Resource {resource} not found."
-        }
 
-    
+        else:
+            return {"statusCode": 405, "body": f"Method {method} not allowed."}
+    elif resource == "/jokes/{joke_id}":
+        if method == "GET":
+            joke_id = event["pathParameters"]["joke_id"]
+            return get_joke(joke_id)
+        else:
+            return {"statusCode": 405, "body": f"Method {method} not allowed."}
+
+    else:
+        return {"statusCode": 404, "body": f"Resource {resource} not found."}

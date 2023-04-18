@@ -1,14 +1,9 @@
 import boto3
 import json
-import logging
 import os
 import urllib3
 
 from datetime import datetime
-
-logger = logging.getLogger()
-log_level = logging.getLevelName(os.getenv("LOG_LEVEL", "INFO"))
-logger.setLevel(log_level)
 
 
 def post_joke():
